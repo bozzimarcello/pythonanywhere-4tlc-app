@@ -7,7 +7,7 @@ app.config["DEBUG"] = True
 
 SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
     username="bozzisql2",
-    password="BirilloBlu33",
+    password="password",
     hostname="bozzisql2.mysql.pythonanywhere-services.com",
     databasename="bozzisql2$sensors",
 )
