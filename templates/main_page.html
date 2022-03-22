@@ -19,23 +19,25 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">My scratchpad</a>
+              <a class="navbar-brand" href="#">Sensor data panel</a>
             </div>
           </div>
         </nav>
 
         <div class="container">
 
-            {% for comment in comments %}
+            {% for sensor in sensors %}
                 <div class="row">
-                    {{ comment }}
+                    {{ sensor.temperature }}&nbsp;{{ sensor.humidity }}&nbsp;{{ sensor.pressure }}
                 </div>
             {% endfor %}
 
             <div class="row">
                 <form action="." method="POST">
-                    <textarea class="form-control" name="contents" placeholder="Enter a comment"></textarea>
-                    <input type="submit" class="btn btn-success" value="Post comment">
+                    <textarea class="form-control" name="temperature" placeholder="Enter a temperature"></textarea>
+                    <textarea class="form-control" name="humidity" placeholder="Enter a humidity"></textarea>
+                    <textarea class="form-control" name="pressure" placeholder="Enter a pressure"></textarea>
+                    <input type="submit" class="btn btn-success" value="Post sensor data">
                 </form>
             </div>
 

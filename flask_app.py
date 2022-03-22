@@ -1,5 +1,6 @@
 from flask import Flask, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
+import os
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -25,13 +26,27 @@ class Sensor(db.Model):
     humidity = db.Column(db.Float)
     pressure = db.Column(db.Float)
 
-comments = []
 
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "GET":
-        return render_template("main_page.html", comments=comments)
+        return render_template("main_page.html", sensors=Sensor.query.all())
 
-    comments.append(request.form["contents"])
+    sensor = Sensor(temperature=request.form["temperature"], humidity=request.form["humidity"], pressure=request.form["pressure"] )
+    db.session.add(sensor)
+    db.session.commit()
     return redirect(url_for('index'))
+
+@app.route("/importa")
+def importazione():
+    THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(THIS_FOLDER, 'sensors-data.csv')
+    myfile = open(filename,'r')
+    for linea in myfile.read().splitlines():
+        campi=linea.split(';')
+        sensor = Sensor(temperature=campi[0],humidity=campi[1],pressure=campi[2])
+        db.session.add(sensor)
+        db.session.commit()
+    myfile.close()
+    return "Data imported"
 
