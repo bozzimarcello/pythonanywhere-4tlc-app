@@ -16,6 +16,15 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
+class Sensor(db.Model):
+
+    __tablename__ = "sensors"
+
+    id = db.Column(db.Integer, primary_key=True)
+    temperature = db.Column(db.Float)
+    humidity = db.Column(db.Float)
+    pressure = db.Column(db.Float)
+
 comments = []
 
 @app.route("/", methods=["GET", "POST"])
