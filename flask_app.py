@@ -6,10 +6,10 @@ app = Flask(__name__)
 app.config["DEBUG"] = True
 
 SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
-    username="bozzisql2",
-    password="password",
-    hostname="bozzisql2.mysql.pythonanywhere-services.com",
-    databasename="bozzisql2$sensors",
+    username="ambientali",
+    password="2wmcq-Td-Lhm/(45",
+    hostname="localhost",
+    databasename="ambientali",
 )
 app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
@@ -50,3 +50,11 @@ def importazione():
     myfile.close()
     return "Data imported"
 
+@app.route("/creadb")
+def creadb():
+    db.create_all()
+    return "Database created"
+
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0')
